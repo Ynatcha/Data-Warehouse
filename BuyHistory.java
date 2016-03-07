@@ -6,10 +6,8 @@
 package termproject_wh;
 
 import edu.sit.cs.db.CSDbDelegate;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -18,17 +16,14 @@ import javax.swing.JTable;
 
 /**
  *
- * @author lavi0123
+ * @author Yuri
  */
-public class ProductList extends javax.swing.JFrame {
+public class BuyHistory extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ProductList
-     */
     String[][] aa; 
     CSDbDelegate db;
     JTable productTable;
-    public ProductList() {
+    public BuyHistory() {
         initComponents();
         this.setLocationRelativeTo(null);
         db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
@@ -46,11 +41,9 @@ public class ProductList extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Search Product");
-        setType(java.awt.Window.Type.UTILITY);
 
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -59,32 +52,31 @@ public class ProductList extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Buy Products");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("BUY HISTORY");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(333, 333, 333)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(409, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(286, 286, 286)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(379, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(266, 266, 266)
+                .addComponent(jLabel2)
+                .addGap(0, 366, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(27, 27, 27))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -96,29 +88,28 @@ public class ProductList extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
     public void showTable() {       
-        String sql = "SELECT * FROM WH_ProductList";
+        String sql = "SELECT * FROM WH_BLBuy";
             ArrayList<HashMap> data = db.queryRows(sql);
-            
             if(data.isEmpty()){
-             JOptionPane.showMessageDialog(null, "...No Products...", "Empty List", JOptionPane.PLAIN_MESSAGE);
+
+             JOptionPane.showMessageDialog(null, "No Buy History", "No History", JOptionPane.PLAIN_MESSAGE);
             }
 
             if(!data.isEmpty()){
-            aa = new String[data.size()][9];
+            aa = new String[data.size()][8];
 
             for(int i = 0 ; i < aa.length;i++){
-                aa[i][0] = (String)data.get(i).get("ProductID");
-                aa[i][1] = (String)data.get(i).get("ProductName");
-                aa[i][2] = (String)data.get(i).get("Brand");
-                aa[i][3] = (String)data.get(i).get("Categories");
-                aa[i][4] = (String)data.get(i).get("Cost");
-                aa[i][5] = (String)data.get(i).get("Price");
-                aa[i][6] = (String)data.get(i).get("AmountLeft");
+                aa[i][0] = (String)data.get(i).get("Date");
+                aa[i][1] = (String)data.get(i).get("ProductID");
+                aa[i][2] = (String)data.get(i).get("ProductName");
+                aa[i][3] = (String)data.get(i).get("BrandName");
+                aa[i][4] = (String)data.get(i).get("Categories");
+                aa[i][5] = (String)data.get(i).get("BuyAmount");
+                aa[i][6] = (String)data.get(i).get("Cost");
                 aa[i][7] = (String)data.get(i).get("FactoryName");
-                aa[i][8] = (String)data.get(i).get("Added");
             }
 
-           String[] name = {"ProductID", "ProductName", "Brand", "Categories", "Cost", "Price", "Amount", "FactoryName", "Added"};
+           String[] name = {"Date", "ProductID" , "ProductName", "BrandName", "Categories","BuyAmount" ,"Cost", "FactoryName"};
             productTable = new JTable(aa, name);
             productTable.setEnabled(false);
             productTable.setSize(getWidth(), 700);
@@ -131,6 +122,9 @@ public class ProductList extends javax.swing.JFrame {
             }
 
         }
+        
+        
+      
     /**
      * @param args the command line arguments
      */
@@ -148,26 +142,26 @@ public class ProductList extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProductList().setVisible(true);
+                new BuyHistory().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

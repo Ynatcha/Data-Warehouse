@@ -9,26 +9,28 @@ import edu.sit.cs.db.CSDbDelegate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
-//import static termproject_wh.ProductList.getConnection;
+import static termproject_wh.Add.addProduct;
+
 /**
  *
- * @author lavi0123
+ * @author Yuri
  */
-public class Add extends javax.swing.JFrame {
+public class Update extends javax.swing.JFrame {
 
     /**
-     * Creates new form Add
+     * Creates new form Update
      */
-    private int lastID;
-    public Add() {
+    CSDbDelegate db;
+    int index;
+    public Update() {
         initComponents();
         this.setLocationRelativeTo(null);
-        getLastIDNumber();
-        productID.setText(" " + (lastID + 1));
+        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        db.connect();
+        
     }
 
     /**
@@ -40,10 +42,12 @@ public class Add extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         productID = new javax.swing.JTextField();
-        Category = new javax.swing.JComboBox();
+        factory = new javax.swing.JTextField();
+        category = new javax.swing.JComboBox();
+        brand = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         productName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -52,27 +56,29 @@ public class Add extends javax.swing.JFrame {
         price = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        factory = new javax.swing.JTextField();
-        brand = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Add Product");
-        setType(java.awt.Window.Type.UTILITY);
-
-        jLabel1.setText("Product ID");
 
         productID.setEnabled(false);
 
-        Category.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Table", "Chair", "Desk", "Sofa", "Bed" }));
-        Category.addActionListener(new java.awt.event.ActionListener() {
+        category.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tabel", "Chair", "Desk", "Sofa" }));
+        category.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CategoryActionPerformed(evt);
+                categoryActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Category");
+
+        jButton1.setText("UPDATE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Product Name");
 
@@ -90,12 +96,11 @@ public class Add extends javax.swing.JFrame {
 
         jLabel7.setText("Brand");
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Product ID");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("UPDATE");
 
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -109,55 +114,62 @@ public class Add extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(price))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(price))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(productName))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(productID, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(brand)
+                                    .addComponent(factory)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(productName))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productID, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(Category, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(brand)
-                            .addComponent(factory))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel8)))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(18, 18, 18))
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(productID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -176,56 +188,55 @@ public class Add extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void getLastIDNumber(){
-         try {
-                Connection con = getConnection();
-                PreparedStatement stmt = con.prepareStatement("SELECT ProductID FROM `WH_ProductList` ORDER BY ProductID DESC LIMIT 1");
-                
-                // Execute SQL query
-                ResultSet rs = stmt.executeQuery();
-                rs.next();
-                lastID = rs.getInt("ProductID");
-                //System.out.println(lastID);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-    }
-    
-    public static void addProduct(String name, String brand, String cat, float cost, float price, int stock, String status, String comment, String facCont) throws Exception {
+
+    private void categoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryActionPerformed
+
+    }//GEN-LAST:event_categoryActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int proID = index;
+        String proName = productName.getText();
+        String brandName = brand.getText();
+        String categoryChoose = "" + category.getSelectedItem();
+        float costGet = Float.parseFloat(cost.getText());
+        float priceGet = Float.parseFloat(price.getText());
+        String facCont = factory.getText();
+        
+        update(proID, proName, brandName, categoryChoose, costGet, priceGet, facCont);
+        //update();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static void update(int prodID, String name, String brand, String cat, float cost, float price, String facCont) {
         try {
             Connection con = getConnection();
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
-            
+            PreparedStatement stmt = con.prepareStatement("UPDATE WH_ProductList SET ProductName = ?, Brand = ?, Categories = ?, Cost = ?, Price = ?, FactoryName = ?, Added = CURRENT_TIMESTAMP WHERE ProductID = '" + prodID + "' ");
+
             stmt.setString(1, name);
             stmt.setString(2, brand);
             stmt.setString(3, cat);
             stmt.setFloat(4, cost);
             stmt.setFloat(5, price);
-            stmt.setInt(6, stock);
-            stmt.setString(7, status);
-            stmt.setString(8, comment);
-            stmt.setString(9, facCont);
+            stmt.setString(6, facCont);
             
             stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
         finally {
-            JOptionPane.showMessageDialog(null, "Insert Completed!!", "Insert", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Update Completed!!", "UPDATE", JOptionPane.PLAIN_MESSAGE);
         }
     }
-    public static Connection getConnection() throws Exception {
+    
+     public static Connection getConnection() throws Exception {
         try {
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://cs14sitkmutt.me:3306/CSC105_G2";
@@ -245,36 +256,28 @@ public class Add extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_productNameActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String proName = productName.getText();
-        String brandName = brand.getText();
-        String categoryChoose = "" + Category.getSelectedItem();
-        float costGet = Float.parseFloat(cost.getText());
-        float priceGet = Float.parseFloat(price.getText());
-        String facCont = factory.getText();
-        
-        try {
-            addProduct(proName, brandName, categoryChoose, costGet, priceGet, 0, null, null, facCont);
-        } catch (Exception ex) {
-            Logger.getLogger(Add.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        productName.setText("");
-        brand.setText("");
-        cost.setText("");
-        price.setText("");
-        factory.setText("");    
-        lastID++;
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryActionPerformed
-
-    }//GEN-LAST:event_CategoryActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Edit edit = new Edit();
-        edit.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+    public void setIndex(int index){
+        this.index = index;
+    }                                        
+    
+    public void setOldData(int i){
+        
+       String sql = "SELECT * FROM WH_ProductList WHERE ProductID = '"+i+"'";  
+       ArrayList<HashMap> data = db.queryRows(sql);
+      
+       productID.setText("" + data.get(0).get("ProductID"));
+       productName.setText("" + data.get(0).get("ProductName"));
+       category.setSelectedItem("" + data.get(0).get("Categories"));
+       brand.setText("" + data.get(0).get("Brand"));
+       cost.setText("" + data.get(0).get("Cost"));
+       price.setText("" + data.get(0).get("Price"));
+       factory.setText("" + data.get(0).get("FactoryName")); 
+     
+    }
+    
 
     /**
      * @param args the command line arguments
@@ -293,27 +296,26 @@ public class Add extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Add.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Add.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Add.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Add.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Add().setVisible(true);
+                new Update().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox Category;
     private javax.swing.JTextField brand;
+    private javax.swing.JComboBox category;
     private javax.swing.JTextField cost;
     private javax.swing.JTextField factory;
     private javax.swing.JButton jButton1;
@@ -325,6 +327,7 @@ public class Add extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField price;
     private javax.swing.JTextField productID;
     private javax.swing.JTextField productName;

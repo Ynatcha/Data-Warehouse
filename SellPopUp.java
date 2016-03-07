@@ -14,27 +14,28 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static termproject_wh.Add.addProduct;
-import static termproject_wh.Add.getConnection;
+import static termproject_wh.BuyPopUp.amount;
+import static termproject_wh.BuyPopUp.getConnection;
 
 /**
  *
- * @author lavi0123
+ * @author Yuri
  */
-public class BuyPopUp extends javax.swing.JFrame {
+public class SellPopUp extends javax.swing.JFrame {
 
     /**
-     * Creates new form BuyPopUp
+     * Creates new form SellPopUp
      */
     CSDbDelegate db;
     int index;
+    int oldAmount;
     static int amount;
     String productName;
     String brandName;
     String category;
-    Float cost;
+    Float price;
     String factoryName;
-    public BuyPopUp() {
+    public SellPopUp() {
         initComponents();
         this.setLocationRelativeTo(null);  
         db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
@@ -52,10 +53,9 @@ public class BuyPopUp extends javax.swing.JFrame {
 
         amountIn = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        addStock = new javax.swing.JButton();
+        sell = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setType(java.awt.Window.Type.UTILITY);
 
         amountIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,12 +64,12 @@ public class BuyPopUp extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Add Amount in stock:");
+        jLabel1.setText("Insert Sell Amount:");
 
-        addStock.setText("Add");
-        addStock.addActionListener(new java.awt.event.ActionListener() {
+        sell.setText("Sell");
+        sell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addStockActionPerformed(evt);
+                sellActionPerformed(evt);
             }
         });
 
@@ -80,26 +80,27 @@ public class BuyPopUp extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel1))
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(addStock)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addGap(105, 105, 105)
+                        .addComponent(sell)))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addStock)
-                .addGap(16, 16, 16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sell)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,31 +110,50 @@ public class BuyPopUp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_amountInActionPerformed
 
-    private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
+    private void sellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellActionPerformed
         String amountText = amountIn.getText();
         amount = Integer.parseInt(amountText);
         //setAllValue();
-        //System.out.println(index +  productName + brandName + category + amount+ cost+ factoryName);
-        
-        //addToBackLog(index, productName, brandName, category, amount, cost, factoryName);
-        
+        // System.out.println(index +  productName + brandName + category + amount+ cost+ factoryName);
+        /*try {
+            addToBackLog(index, productName, brandName, category, amount, price, factoryName);
+        } catch (Exception ex) {
+            Logger.getLogger(SellPopUp.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+
         amountCal(index);
-        update(index);
+        if(oldAmount >= amount){
+         update(index);
+        }
         this.setVisible(false);
         db.disconnect();
-    }//GEN-LAST:event_addStockActionPerformed
+    }//GEN-LAST:event_sellActionPerformed
+    public void amountCal(int index){
+        //get the current amount of the product 
+        String sql = "SELECT AmountLeft FROM WH_ProductList WHERE ProductID = '"+index+"'";
+        
+        ArrayList<HashMap> data = db.queryRows(sql);
+        oldAmount = Integer.parseInt(""+data.get(0).get("AmountLeft"));
+        if(oldAmount < amount){
+            
+        JOptionPane.showMessageDialog(null,"NOT ENOUGH STOCK!!" , "", JOptionPane.PLAIN_MESSAGE);
+        }
+        if(oldAmount >= amount){
+            amount = oldAmount - amount;
+        }
+    }
     
-   public static void addToBackLog(int proID, String name, String brand, String cat, int amount, float cost, String facCont) throws Exception {
+    public static void addToBackLog(int proID, String name, String brand, String cat, int amount, float price, String facCont) throws Exception {
         try {
             Connection con = getConnection();
             
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO WH_BLBuy (ProductID, ProductName, BrandName, Categories, BuyAmount, Cost, FactoryName, Date) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO WH_BLSell (ProductID, ProductName, BrandName, Categories, SellAmount, Price, FactoryName, Date) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
             stmt.setInt(1, proID);
             stmt.setString(2, name);
             stmt.setString(3, brand);
             stmt.setString(4, cat);
             stmt.setInt(5, amount);
-            stmt.setFloat(6, cost);
+            stmt.setFloat(6, price);
             stmt.setString(7, facCont);
             
             stmt.executeUpdate();
@@ -141,20 +161,11 @@ public class BuyPopUp extends javax.swing.JFrame {
             System.out.println(e);
         }
         finally {
-            JOptionPane.showMessageDialog(null, "Update the backlog Completed!!", "Insert", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Update the Backlog Completed!!", "Insert", JOptionPane.PLAIN_MESSAGE);
         }
     }
     
-    public void amountCal(int index){
-        //get the current amount of the product 
-        String sql = "SELECT AmountLeft FROM WH_ProductList WHERE ProductID = '"+index+"'";  
-        ArrayList<HashMap> data = db.queryRows(sql);
-        int oldAmount = Integer.parseInt(""+data.get(0).get("AmountLeft"));
-        //System.out.println(oldAmount);
-        amount = amount + oldAmount;
-        System.out.println(amount);
-    }
-    public void setAllValue(){
+     public void setAllValue(){
         //get the current amount of the product 
         String sql = "SELECT * FROM WH_ProductList WHERE ProductID = '"+index+"'";  
         ArrayList<HashMap> data = db.queryRows(sql);
@@ -162,12 +173,11 @@ public class BuyPopUp extends javax.swing.JFrame {
             productName = (String)data.get(0).get("ProductName");
             brandName = (String)data.get(0).get("Brand");
             category = (String)data.get(0).get("Categories");
-            cost = Float.parseFloat((String)data.get(0).get("Cost"));
+            price = Float.parseFloat((String)data.get(0).get("Price"));
             factoryName = (String)data.get(0).get("FactoryName");
 
     }
-    
-    
+     
     public static void update(int index) {
         try {
             Connection con = getConnection();
@@ -179,7 +189,7 @@ public class BuyPopUp extends javax.swing.JFrame {
             System.out.println(e);
         }
         finally {
-            JOptionPane.showMessageDialog(null, "Add Amount Completed!!", "UPDATE", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sell Completed!!", "UPDATE", JOptionPane.PLAIN_MESSAGE);
         }
     }
     
@@ -199,12 +209,12 @@ public class BuyPopUp extends javax.swing.JFrame {
         }
         return null;
     }
+    public void setIndex(int index){
+            this.index = index;
+        }
     /**
      * @param args the command line arguments
      */
-    public void setIndex(int index){
-        this.index = index;
-    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -219,31 +229,27 @@ public class BuyPopUp extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuyPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SellPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuyPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SellPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuyPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SellPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuyPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SellPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuyPopUp().setVisible(true);
+                new SellPopUp().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addStock;
     private javax.swing.JTextField amountIn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton sell;
     // End of variables declaration//GEN-END:variables
-
-    private void addToBackLog(int index, String productName, String brandName, String category, int amount, Float cost, String factoryName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
