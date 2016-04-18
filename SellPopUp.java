@@ -57,6 +57,7 @@ public class SellPopUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        amountIn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         amountIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 amountInActionPerformed(evt);
@@ -64,9 +65,10 @@ public class SellPopUp extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Insert Sell Amount:");
+        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel1.setText("How much to sell ?");
 
-        sell.setText("Sell");
+        sell.setText("Sell !");
         sell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sellActionPerformed(evt);
@@ -87,9 +89,9 @@ public class SellPopUp extends javax.swing.JFrame {
                                 .addGap(9, 9, 9)
                                 .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(102, 102, 102)
                         .addComponent(sell)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
