@@ -31,7 +31,7 @@ public class UpdateSearch extends javax.swing.JFrame {
     public UpdateSearch() {
         initComponents();
         this.setLocationRelativeTo(null);
-        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
         db.connect();
     }
 
@@ -51,7 +51,6 @@ public class UpdateSearch extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 500));
 
         jButton1.setText("Update Product");
         jButton1.setToolTipText("");
