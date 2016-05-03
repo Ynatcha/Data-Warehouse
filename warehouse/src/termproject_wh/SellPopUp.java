@@ -38,7 +38,7 @@ public class SellPopUp extends javax.swing.JFrame {
     public SellPopUp() {
         initComponents();
         this.setLocationRelativeTo(null);  
-        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
         db.connect();
     }
 
@@ -196,9 +196,9 @@ public class SellPopUp extends javax.swing.JFrame {
      public static Connection getConnection() throws Exception {
         try {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://cs14sitkmutt.me:3306/CSC105_G2";
-            String username = "CSC105_G2";
-            String password = "CSC105_G2";
+            String url = "jdbc:mysql://csprog-in.sit.kmutt.ac.th:3306/CSC105_G2";
+            String username = "csc105_2014";
+            String password = "csc105";
             Class.forName(driver);
             
             Connection conn = DriverManager.getConnection(url, username, password);

@@ -31,8 +31,8 @@ public class Buy extends javax.swing.JFrame {
     public Buy() {
         initComponents();
         this.setLocationRelativeTo(null);
-        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
-        db.connect();
+        db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
+        System.out.println(db.connect());
     }
 
     /**

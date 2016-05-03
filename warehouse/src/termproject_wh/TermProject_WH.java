@@ -18,7 +18,7 @@ public class TermProject_WH {
      */
     public static void main(String[] args) {
          // connect to database
-        CSDbDelegate db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
         System.out.println(db.connect());
         
         LogIn open = new LogIn();
