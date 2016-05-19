@@ -13,7 +13,7 @@ import edu.sit.cs.db.CSDbDelegate;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class View_WH {
-   CSDbDelegate db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+   CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
     //Insert a student05_test
     public void addBLBuy(){
         String blBuy = "INSERT INTO WH_BLBuy(Date, ProductID, ProductName, Categories, BuyAmount, Cost, FactoryName, Username)VALUES("

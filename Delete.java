@@ -44,7 +44,7 @@ public class Delete extends javax.swing.JFrame {
     public Delete() {
         initComponents();
         this.setLocationRelativeTo(null);
-        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
         db.connect();
     }
 
@@ -68,7 +68,6 @@ public class Delete extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delete");
-        setPreferredSize(new java.awt.Dimension(969, 500));
 
         jButton1.setText("Delete Product");
         jButton1.setToolTipText("");

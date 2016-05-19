@@ -38,8 +38,9 @@ public class SellPopUp extends javax.swing.JFrame {
     public SellPopUp() {
         initComponents();
         this.setLocationRelativeTo(null);  
-        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
         db.connect();
+        //System.out.print("Kuyyyyy");
     }
 
     /**
@@ -57,7 +58,6 @@ public class SellPopUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        amountIn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         amountIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 amountInActionPerformed(evt);
@@ -65,10 +65,9 @@ public class SellPopUp extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
-        jLabel1.setText("How much to sell ?");
+        jLabel1.setText("Insert Sell Amount:");
 
-        sell.setText("Sell !");
+        sell.setText("Sell");
         sell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sellActionPerformed(evt);
@@ -89,9 +88,9 @@ public class SellPopUp extends javax.swing.JFrame {
                                 .addGap(9, 9, 9)
                                 .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
+                        .addGap(105, 105, 105)
                         .addComponent(sell)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,20 +114,22 @@ public class SellPopUp extends javax.swing.JFrame {
     private void sellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellActionPerformed
         String amountText = amountIn.getText();
         amount = Integer.parseInt(amountText);
-        //setAllValue();
-        // System.out.println(index +  productName + brandName + category + amount+ cost+ factoryName);
-        /*try {
+        setAllValue();
+        System.out.println(index +" lol "+  productName +" lol "+ brandName +" lol "+ category +" lol "+ amount+" lol "+ price+" lol "+ factoryName);
+        try {
             addToBackLog(index, productName, brandName, category, amount, price, factoryName);
         } catch (Exception ex) {
             Logger.getLogger(SellPopUp.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-
+        }
+       
         amountCal(index);
         if(oldAmount >= amount){
          update(index);
+         
         }
-        this.setVisible(false);
         db.disconnect();
+        this.setVisible(false);
+        
     }//GEN-LAST:event_sellActionPerformed
     public void amountCal(int index){
         //get the current amount of the product 
@@ -198,9 +199,9 @@ public class SellPopUp extends javax.swing.JFrame {
      public static Connection getConnection() throws Exception {
         try {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://cs14sitkmutt.me:3306/CSC105_G2";
-            String username = "CSC105_G2";
-            String password = "CSC105_G2";
+            String url = "jdbc:mysql://csprog-in.sit.kmutt.ac.th:3306/CSC105_G2";
+            String username = "csc105_2014";
+            String password = "csc105";
             Class.forName(driver);
             
             Connection conn = DriverManager.getConnection(url, username, password);

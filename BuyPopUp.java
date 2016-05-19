@@ -37,7 +37,7 @@ public class BuyPopUp extends javax.swing.JFrame {
     public BuyPopUp() {
         initComponents();
         this.setLocationRelativeTo(null);  
-        db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G2", "CSC105_G2","CSC105_G2");
+        db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G2", "csc105_2014","csc105");
         db.connect();
     }
 
@@ -63,7 +63,7 @@ public class BuyPopUp extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Add Amount in stock:");
 
         addStock.setText("Add");
@@ -77,30 +77,29 @@ public class BuyPopUp extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 62, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(56, 56, 56))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(addStock)
-                        .addGap(112, 112, 112))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(addStock)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(amountIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addStock)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -113,11 +112,14 @@ public class BuyPopUp extends javax.swing.JFrame {
     private void addStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockActionPerformed
         String amountText = amountIn.getText();
         amount = Integer.parseInt(amountText);
-        //setAllValue();
+        setAllValue();
         //System.out.println(index +  productName + brandName + category + amount+ cost+ factoryName);
-        
-        //addToBackLog(index, productName, brandName, category, amount, cost, factoryName);
-        
+            try {
+        addToBackLog(index, productName, brandName, category, amount, cost, factoryName);
+         } catch (Exception ex) {
+            Logger.getLogger(SellPopUp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
         amountCal(index);
         update(index);
         this.setVisible(false);
@@ -187,9 +189,9 @@ public class BuyPopUp extends javax.swing.JFrame {
      public static Connection getConnection() throws Exception {
         try {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://cs14sitkmutt.me:3306/CSC105_G2";
-            String username = "CSC105_G2";
-            String password = "CSC105_G2";
+            String url = "jdbc:mysql://csprog-in.sit.kmutt.ac.th:3306/CSC105_G2";
+            String username = "csc105_2014";
+            String password = "csc105";
             Class.forName(driver);
             
             Connection conn = DriverManager.getConnection(url, username, password);
@@ -244,7 +246,7 @@ public class BuyPopUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
-    private void addToBackLog(int index, String productName, String brandName, String category, int amount, Float cost, String factoryName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   // private void addToBackLog(int index, String productName, String brandName, String category, int amount, Float cost, String factoryName) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //}
 }
