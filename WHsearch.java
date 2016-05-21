@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author KLoOonal
+ * @author lavi0123
  */
 public class WHsearch extends javax.swing.JFrame {
 
@@ -68,7 +68,6 @@ public class WHsearch extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setFont(new java.awt.Font("Sitka Text", 0, 11)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -82,7 +81,7 @@ public class WHsearch extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Buy");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +89,7 @@ public class WHsearch extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setText("Sell");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +97,7 @@ public class WHsearch extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +105,7 @@ public class WHsearch extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton5.setText("Edit");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +113,7 @@ public class WHsearch extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Britannic Bold", 0, 12)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton6.setText("Refresh");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +121,7 @@ public class WHsearch extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Britannic Bold", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Britannic Bold", 0, 36)); // NOI18N
         jLabel1.setText("Search");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,23 +144,24 @@ public class WHsearch extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5)
                                 .addGap(45, 45, 45)
-                                .addComponent(jButton6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(195, 195, 195)
-                                .addComponent(jLabel1)))
+                                .addComponent(jButton6)))
                         .addGap(0, 9, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -209,7 +209,8 @@ public class WHsearch extends javax.swing.JFrame {
                infoDelete.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Delete', '"+temp[0][1]+"', '"+temp[0][2]+"', '"+temp[0][3]+"', '"+temp[0][4]+"', '"+temp[0][5]+"','"+temp[0][6]+"', '"+temp[0][7]+"', '"+temp[0][8]+"', '"+temp[0][9]+"', CURRENT_TIMESTAMP)"); 
          
                infoDelete.genInfo("DELETE FROM WH_ProductList WHERE ProductID = '"+indexAll+"'");
-               
+                 JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
+
                
                    }    
        }
