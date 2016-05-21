@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author p4tch4l2p0n
+ * @author หญิง
  */
 public class WHmainmenu extends javax.swing.JFrame {
 
