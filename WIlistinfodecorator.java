@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author KLoOonal
+ * @author p4tch4r4p0n
  */
 public class WIlistinfodecorator extends WIinfodecorator {
     
@@ -20,7 +20,7 @@ public class WIlistinfodecorator extends WIinfodecorator {
         super(dcorated);
     }
     
-      public String[][] getInfo(int typ){
+    public String[][] getInfo(int typ){
         decoratedInfo.getInfo(typ);
         
       return decoratedInfo.getInfo(typ);
@@ -51,7 +51,7 @@ public class WIlistinfodecorator extends WIinfodecorator {
             System.out.println(e);
         }
         finally {
-            JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
+           // JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
         }
     
     }

@@ -7,7 +7,7 @@ package termproject_wh;
 
 /**
  *
- * @author KLoOonal
+ * @author หญิง
  */
 public abstract class WIinfodecorator implements WIinfo{
     protected WIinfo decoratedInfo;
