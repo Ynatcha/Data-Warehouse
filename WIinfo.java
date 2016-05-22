@@ -7,7 +7,7 @@ package termproject_wh;
 
 /**
  *
- * @author KLoOonal
+ * @author lavi0123
  */
 public interface WIinfo {
     String[][] getInfo(int typ);

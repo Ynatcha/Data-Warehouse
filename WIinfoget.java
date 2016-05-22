@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author KLoOonal
+ * @author lavi0123
  */
 public class WIinfoget implements WIinfo {
     

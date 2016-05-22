@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 /**
  *
- * @author KLoOonal
+ * @author หญิง 
  */
 public class WIinfohis implements WIinfo {
       public String[][] getInfo(int typ){
@@ -53,7 +53,6 @@ public class WIinfohis implements WIinfo {
         }
         db.disconnect();
     return gundam;
-      }
-      
+      }   
    
 }

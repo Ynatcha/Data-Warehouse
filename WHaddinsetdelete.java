@@ -5,6 +5,8 @@
  */
 package termproject_wh;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author p4tch4l2p0n
@@ -151,15 +153,13 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 68, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 136, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 162, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(48, 48, 48)
-                                    .addComponent(jLabel4)))
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
@@ -187,13 +187,17 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
                         .addComponent(jTextField10))
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(128, 128, 128))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(316, 316, 316))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(40, 40, 40)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel11)
@@ -229,10 +233,10 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Britannic Bold", 0, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,15 +253,15 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 275, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(223, 223, 223))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(238, 238, 238)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(323, 323, 323)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(301, 301, 301))
+                .addContainerGap(304, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,9 +270,9 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -291,10 +295,26 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
       if(orderType==1){
       infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Add', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
       infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES (NULL, '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+       JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
+
       }else{
-      String temppo = jTextField1.getText();
-      infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
-      infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES ('"+temppo+"', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+      String id = jTextField1.getText();
+     
+      //  infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+      //  infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES ('"+temppo+"', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+         //String sql ="UPDATE WH_History SET Type='Edit' , ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', Amount='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', Factory='"+input[8]+"', Time=CURRENT_TIMESTAMP WHERE HistoryID = '"+id+"'";
+        String sql ="INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)"; 
+        System.out.println(sql);         
+         infobuy.genInfo(sql);
+         
+         
+         sql =" UPDATE WH_ProductList SET ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', AmountLeft='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', FactoryName='"+input[8]+"' WHERE ProductID = '"+id+"'";
+         System.out.println(sql);
+         infobuy.genInfo(sql);
+         //infobuy.genInfo("UPDATE WH_ProductList SET ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', AmountLeft='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', FactoryName='"+input[8]+"', Time=CURRENT_TIMESTAMP WHERE ProductID = '"+id+"'");
+        
+      JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
+
       }
       
       
