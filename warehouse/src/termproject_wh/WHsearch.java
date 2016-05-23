@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author KLoOonal
+ * @author lavi0123
  */
 public class WHsearch extends javax.swing.JFrame {
 
@@ -38,10 +38,10 @@ public class WHsearch extends javax.swing.JFrame {
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() >= 1) {
                       rowAll = jTable1.rowAtPoint(e.getPoint());               
-                      //System.out.println(row);
+                      
                       jTable1.setRowSelectionInterval(rowAll, rowAll);
                       indexAll = Integer.parseInt(data[rowAll][0]);
-                      //System.out.println(indexAll);
+                      
                     }
                 }
              });
@@ -202,7 +202,7 @@ public class WHsearch extends javax.swing.JFrame {
        }else { 
           WIinfo infoDelete = new WIlistinfodecorator(new WIinfoget());
           
-          if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
+          if (JOptionPane.showConfirmDialog(null, "Confirm?", "WARNING",
                          JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
               String[][] temp = new String[1][12];
                temp= infoDelete.getInfo(indexAll+100);

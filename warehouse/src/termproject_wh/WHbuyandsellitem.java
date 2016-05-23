@@ -5,7 +5,12 @@
  */
 package termproject_wh;
 
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 
 /**
  *
@@ -20,6 +25,12 @@ public class WHbuyandsellitem extends javax.swing.JFrame {
     private int orderType = -1 ;  // 1  buy , 2 sell
     public WHbuyandsellitem(int index ,int tpy) {
         initComponents();
+        
+        InputVerifier verifier = new WHbuyandsellitem.MyNumericVerifier();
+       
+        
+        jTextField1.setInputVerifier(verifier);
+                
         orderType = tpy;
         this.index = index;
         if(tpy==2){
@@ -326,12 +337,15 @@ public class WHbuyandsellitem extends javax.swing.JFrame {
       WIinfo infobuy = new WIlistinfodecorator(new WIinfoget());
       int number = 0;
       int before = 0;
+      
       try{ 
           number = Integer.parseInt(jTextField1.getText());
           before = number;
       }catch (Exception e){
           number = 0;
       }
+      
+      
       String[][] temp = new String[0][12];
       temp =infobuy.getInfo(index+100);
       if(orderType ==2){
@@ -388,4 +402,27 @@ public class WHbuyandsellitem extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+public class MyNumericVerifier extends InputVerifier {
+    @Override
+    public boolean verify(JComponent input) {
+       String text = ((JTextField) input).getText();
+       if("".equalsIgnoreCase(text))  return true;
+       
+       if (text.charAt(0) == '-' || text.charAt(0) == '+') {
+          JOptionPane.showMessageDialog(null, "Please Check your input", "Error", JOptionPane.PLAIN_MESSAGE);
+          return false;
+        }
+       
+       try {
+          Integer.parseInt(text);
+       } catch (NumberFormatException e) {
+          JOptionPane.showMessageDialog(null, "Please Check your input", "Error", JOptionPane.PLAIN_MESSAGE);
+          return false;
+       }
+
+       return true;
+    }
+}
+    
+
 }

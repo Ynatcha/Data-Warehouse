@@ -5,7 +5,10 @@
  */
 package termproject_wh;
 
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,6 +23,16 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
     private int  orderType = -1;
     public WHaddinsetdelete(int index , int orderType) {
         initComponents();
+        
+        InputVerifier verifier = new MyNumericVerifier();
+       
+        jTextField2.setInputVerifier(verifier);// cost
+        jTextField4.setInputVerifier(verifier);// price
+        jTextField7.setInputVerifier(verifier);// amount
+     
+   
+ 
+        
         this.index = index ;
         this.orderType = orderType;
         jTextField1.setEditable(false);
@@ -89,7 +102,7 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Information");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -292,31 +305,40 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
       input[6] = jTextField9.getText();// status
       input[7] = jTextField10.getText();// comment
       input[8] = jTextField8.getText();// factory
-      if(orderType==1){
-      infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Add', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
-      infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES (NULL, '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
-       JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
-
-      }else{
-      String id = jTextField1.getText();
-     
-      //  infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
-      //  infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES ('"+temppo+"', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
-         //String sql ="UPDATE WH_History SET Type='Edit' , ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', Amount='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', Factory='"+input[8]+"', Time=CURRENT_TIMESTAMP WHERE HistoryID = '"+id+"'";
-        String sql ="INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)"; 
-        System.out.println(sql);         
-         infobuy.genInfo(sql);
-         
-         
-         sql =" UPDATE WH_ProductList SET ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', AmountLeft='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', FactoryName='"+input[8]+"' WHERE ProductID = '"+id+"'";
-         System.out.println(sql);
-         infobuy.genInfo(sql);
-         //infobuy.genInfo("UPDATE WH_ProductList SET ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', AmountLeft='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', FactoryName='"+input[8]+"', Time=CURRENT_TIMESTAMP WHERE ProductID = '"+id+"'");
-        
-      JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
-
+      boolean v=false;
+      for(String tmp :input){
+         if("".equalsIgnoreCase(tmp)) v=true;
       }
       
+      if(v){
+             JOptionPane.showMessageDialog(null, "Please Check your input", "Error", JOptionPane.PLAIN_MESSAGE);
+          
+      }else {
+            if(orderType==1){
+            infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Add', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+            infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES (NULL, '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+             JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
+
+            }else{
+            String id = jTextField1.getText();
+
+            //  infobuy.genInfo("INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+            //  infobuy.genInfo("INSERT INTO WH_ProductList (ProductID, ProductName, Brand, Categories, Cost, Price, AmountLeft, Status, Comment, FactoryName, Added) VALUES ('"+temppo+"', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)");
+               //String sql ="UPDATE WH_History SET Type='Edit' , ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', Amount='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', Factory='"+input[8]+"', Time=CURRENT_TIMESTAMP WHERE HistoryID = '"+id+"'";
+              String sql ="INSERT INTO WH_History (HistoryID,Type,ProductName, Brand, Categories, Cost, Price, Amount, Status, Comment, Factory, Time) VALUES (NULL,'Edit', '"+input[0]+"', '"+input[1]+"', '"+input[2]+"', '"+input[3]+"', '"+input[4]+"','"+input[5]+"', '"+input[6]+"', '"+input[7]+"', '"+input[8]+"', CURRENT_TIMESTAMP)"; 
+              System.out.println(sql);         
+               infobuy.genInfo(sql);
+
+
+               sql =" UPDATE WH_ProductList SET ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', AmountLeft='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', FactoryName='"+input[8]+"' WHERE ProductID = '"+id+"'";
+               System.out.println(sql);
+               infobuy.genInfo(sql);
+               //infobuy.genInfo("UPDATE WH_ProductList SET ProductName='"+input[0]+"', Brand='"+input[1]+"', Categories='"+input[2]+"', Cost='"+input[3]+"', Price='"+input[4]+"', AmountLeft='"+input[5]+"', Status='"+input[6]+"', Comment='"+input[7]+"', FactoryName='"+input[8]+"', Time=CURRENT_TIMESTAMP WHERE ProductID = '"+id+"'");
+
+            JOptionPane.showMessageDialog(null, "Operation complete", "Operation", JOptionPane.PLAIN_MESSAGE);
+
+            }
+      }
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -353,4 +375,26 @@ public class WHaddinsetdelete extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
+    public class MyNumericVerifier extends InputVerifier {
+    @Override
+    public boolean verify(JComponent input) {
+       String text = ((JTextField) input).getText();
+       if("".equalsIgnoreCase(text))  return true;
+       
+       if (text.charAt(0) == '-' || text.charAt(0) == '+') {
+          JOptionPane.showMessageDialog(null, "Please Check your input", "Error", JOptionPane.PLAIN_MESSAGE);
+          return false;
+        }
+       
+       try {
+          Integer.parseInt(text);
+       } catch (NumberFormatException e) {
+          JOptionPane.showMessageDialog(null, "Please Check your input", "Error", JOptionPane.PLAIN_MESSAGE);
+          return false;
+       }
+
+       return true;
+    }
+}
+
 }

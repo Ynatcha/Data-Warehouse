@@ -52,7 +52,10 @@ public class WHmainmenu extends javax.swing.JFrame {
         bedModel = new DefaultTableModel(dataBed,normalCol);
         chairModel = new DefaultTableModel(dataChair,normalCol);
         deskModel = new DefaultTableModel(dataDesk,normalCol);
-        // Adding all model to each table and config editable.
+
+
+        
+// Adding all model to each table and config editable.
         jTable2.setModel(allModel);
        
         jTable2.setEnabled(false);
@@ -75,6 +78,7 @@ public class WHmainmenu extends javax.swing.JFrame {
         jTable8.setModel(hisModel);
         jTable8.setEnabled(false);
         
+    
         // Set all table action listener
           jTable2.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -365,8 +369,8 @@ public class WHmainmenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.setFont(new java.awt.Font("Sitka Text", 1, 11)); // NOI18N
@@ -563,7 +567,7 @@ public class WHmainmenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -625,7 +629,7 @@ public class WHmainmenu extends javax.swing.JFrame {
        }else { 
           WIinfo infoDelete = new WIlistinfodecorator(new WIinfoget());
           
-          if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
+          if (JOptionPane.showConfirmDialog(null, "Confirm?", "WARNING",
                          JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
               String[][] temp = new String[1][12];
                temp= infoDelete.getInfo(indexSent+100);
